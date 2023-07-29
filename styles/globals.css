@@ -168,3 +168,13 @@
 .flex-between {
   @apply flex justify-between items-center;
 }
+
+/* Custom tooltip theme for "Copied" */
+.tippy-box[data-theme="default"] {
+  @apply bg-gradient-to-r from-blue-600 to-cyan-600;
+  color: white;
+}
+.tippy-box[data-theme="copied-theme"] {
+  @apply bg-gradient-to-r from-green-400 to-green-500;
+  color: white;
+}

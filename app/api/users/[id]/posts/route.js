@@ -7,7 +7,7 @@ export const GET = async (req, { params }) => {
 
     const blog = await Blog.find({
       creator: params.id,
-    }).populate("creator");
+    }).populate("creator").sort({ createdAt: -1 });;
 
     return new Response(JSON.stringify(blog), {
       status: 200,

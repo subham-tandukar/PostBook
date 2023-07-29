@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
 import BlogCard from "./BlogCard";
+import Loading from "./loading";
 
 const BlogCardList = ({ data, handleTagClick }) => {
   return (
-    <div className="mt-16 prompt_layout">
+    <div className="mt-8 prompt_layout">
       {data.map((post) => (
         <BlogCard key={post._id} post={post} handleTagClick={handleTagClick} />
       ))}
@@ -16,6 +16,7 @@ const BlogCardList = ({ data, handleTagClick }) => {
 
 const Feed = () => {
   const [allPosts, setAllPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // Search states
   const [searchText, setSearchText] = useState("");
@@ -25,7 +26,7 @@ const Feed = () => {
   const fetchPosts = async () => {
     const response = await fetch("/api/blog");
     const data = await response.json();
-
+    setLoading(false);
     setAllPosts(data);
   };
 
@@ -77,10 +78,22 @@ const Feed = () => {
       </form>
 
       {/* All Blogs */}
-      {searchText ? (
-        <BlogCardList data={searchedResults} handleTagClick={handleTagClick} />
+
+      {loading ? (
+        <div className="mt-10">
+          <Loading/>
+        </div>
       ) : (
-        <BlogCardList data={allPosts} handleTagClick={handleTagClick} />
+        <>
+          {searchText ? (
+            <BlogCardList
+              data={searchedResults}
+              handleTagClick={handleTagClick}
+            />
+          ) : (
+            <BlogCardList data={allPosts} handleTagClick={handleTagClick} />
+          )}
+        </>
       )}
     </section>
   );

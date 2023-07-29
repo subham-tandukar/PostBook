@@ -8,6 +8,7 @@ import Profile from "@components/Profile";
 
 const MyProfile = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const { data: session } = useSession();
 
   const [myPosts, setMyPosts] = useState([]);
@@ -16,7 +17,7 @@ const MyProfile = () => {
     const fetchPosts = async () => {
       const response = await fetch(`/api/users/${session?.user.id}/posts`);
       const data = await response.json();
-
+      setLoading(false);
       setMyPosts(data);
     };
 
@@ -52,6 +53,7 @@ const MyProfile = () => {
       data={myPosts}
       handleEdit={handleEdit}
       handleDelete={handleDelete}
+      loading={loading}
     />
   );
 };

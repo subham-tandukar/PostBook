@@ -5,7 +5,7 @@ export const GET = async (req) => {
   try {
     await connectToDB();
 
-    const blogs = await Blog.find({}).populate("creator");
+    const blogs = await Blog.find().populate("creator").sort({ createdAt: -1 });;
 
     return new Response(JSON.stringify(blogs), {
       status: 200,

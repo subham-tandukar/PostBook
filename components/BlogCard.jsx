@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css"; // optional
 
 const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
   const { data: session } = useSession();
@@ -25,6 +27,48 @@ const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
     navigator.clipboard.writeText(post.blog);
     setTimeout(() => setCopied(false), 3000);
   };
+
+  // to get human readable timestamp
+  function formatDateWithTime(date) {
+    const formattedDate = new Date(date);
+    const year = formattedDate.getFullYear();
+    const month = formattedDate.getMonth() + 1; // Months are zero-based, so we add 1
+    const day = formattedDate.getDate();
+    const hours = formattedDate.getHours();
+    let minutes = formattedDate.getMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    // Convert hours from 24-hour format to 12-hour format
+    const displayHours = hours % 12 || 12;
+    // Ensure minutes are displayed with leading zero if less than 10
+    if (minutes < 10) {
+      minutes = `0${minutes}`;
+    }
+    return `${year}/${month}/${day} , ${displayHours}:${minutes} ${ampm}`;
+  }
+
+  function timeAgo(timestamp) {
+    const currentTime = Date.now();
+    const createdAtTime = new Date(timestamp).getTime();
+    const timeDifference = currentTime - createdAtTime;
+    const seconds = Math.floor(timeDifference / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (seconds < 60) {
+      return "Just now";
+    } else if (minutes < 60) {
+      return `${minutes} ${minutes === 1 ? "minute" : "minutes"} ago`;
+    } else if (hours < 24) {
+      return `${hours} ${hours === 1 ? "hour" : "hours"} ago`;
+    } else if (days === 1) {
+      return "1 day ago";
+    } else {
+      // For a timestamp older than 1 day, show the time and date in a specific format
+      const formattedDate = formatDateWithTime(timestamp);
+      return `${formattedDate}`;
+    }
+  }
 
   return (
     <div className="prompt_card">
@@ -52,16 +96,23 @@ const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
         </div>
 
         <div className="copy_btn" onClick={handleCopy}>
-          <Image
-            src={
-              copied === post.blog
-                ? "/assets/icons/tick.svg"
-                : "/assets/icons/copy.svg"
-            }
-            alt={copied === post.blog ? "tick_icon" : "copy_icon"}
-            width={12}
-            height={12}
-          />
+          <Tippy
+            content={copied === post.blog ? "Copied" : "Copy"}
+            hideOnClick={false}
+            theme={copied === post.blog ? "copied-theme" : "default"}
+            arrow={false}
+          >
+            <Image
+              src={
+                copied === post.blog
+                  ? "/assets/icons/tick.svg"
+                  : "/assets/icons/copy.svg"
+              }
+              alt={copied === post.blog ? "tick_icon" : "copy_icon"}
+              width={12}
+              height={12}
+            />
+          </Tippy>
         </div>
       </div>
 
@@ -89,6 +140,20 @@ const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
           </p>
         </div>
       )}
+
+      <hr className="my-4" />
+
+      <div className="flex gap-2">
+        <Image
+          src="/assets/icons/clock.gif"
+          alt="time"
+          width={20}
+          height={15}
+        />
+        <span className="font-inter text-sm text-gray-500">
+          {timeAgo(post.createdAt)}
+        </span>
+      </div>
     </div>
   );
 };

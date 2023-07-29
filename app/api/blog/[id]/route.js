@@ -6,7 +6,7 @@ export const GET = async (req, { params }) => {
   try {
     await connectToDB();
 
-    const blog = await Blog.findById(params.id).populate("creator");
+    const blog = await Blog.findById(params.id).populate("creator").sort({ createdAt: -1 });;
     if (!blog) return new Response("Blog Not Found", { status: 404 });
     return new Response(JSON.stringify(blog), {
       status: 200,
