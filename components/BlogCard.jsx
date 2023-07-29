@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
-import Tippy from "@tippyjs/react";
+import {Tippy} from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
 
 const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
