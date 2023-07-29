@@ -4,8 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
-import {Tippy} from "@tippyjs/react";
-import "tippy.js/dist/tippy.css"; // optional
+
 
 const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
   const { data: session } = useSession();
@@ -96,12 +95,7 @@ const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
         </div>
 
         <div className="copy_btn" onClick={handleCopy}>
-          <Tippy
-            content={copied === post.blog ? "Copied" : "Copy"}
-            hideOnClick={false}
-            theme={copied === post.blog ? "copied-theme" : "default"}
-            arrow={false}
-          >
+          
             <Image
               src={
                 copied === post.blog
@@ -112,7 +106,6 @@ const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
               width={12}
               height={12}
             />
-          </Tippy>
         </div>
       </div>
 
