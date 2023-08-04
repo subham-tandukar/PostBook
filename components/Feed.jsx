@@ -25,9 +25,15 @@ const Feed = () => {
 
   const fetchPosts = async () => {
     const response = await fetch("/api/blog");
-    const data = await response.json();
-    setLoading(false);
-    setAllPosts(data);
+    const result = await response.json();
+    if (result.StatusCode === 200) {
+      const postResult = result.Values ? result.Values : [];
+      setAllPosts(postResult);
+      setLoading(false);
+    } else {
+      setAllPosts([]);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -81,7 +87,7 @@ const Feed = () => {
 
       {loading ? (
         <div className="mt-10">
-          <Loading/>
+          <Loading />
         </div>
       ) : (
         <>

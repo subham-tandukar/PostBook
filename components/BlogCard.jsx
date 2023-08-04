@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 
-
 const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
   const { data: session } = useSession();
   const pathName = usePathname();
@@ -95,17 +94,16 @@ const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
         </div>
 
         <div className="copy_btn" onClick={handleCopy}>
-          
-            <Image
-              src={
-                copied === post.blog
-                  ? "/assets/icons/tick.svg"
-                  : "/assets/icons/copy.svg"
-              }
-              alt={copied === post.blog ? "tick_icon" : "copy_icon"}
-              width={12}
-              height={12}
-            />
+          <Image
+            src={
+              copied === post.blog
+                ? "/assets/icons/tick.svg"
+                : "/assets/icons/copy.svg"
+            }
+            alt={copied === post.blog ? "tick_icon" : "copy_icon"}
+            width={12}
+            height={12}
+          />
         </div>
       </div>
 
@@ -136,16 +134,25 @@ const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
 
       <hr className="my-4" />
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 items-center">
         <Image
           src="/assets/icons/clock.gif"
           alt="time"
           width={20}
           height={15}
         />
-        <span className="font-inter text-sm text-gray-500">
-          {timeAgo(post.createdAt)}
-        </span>
+        <div>
+          <p className="font-inter text-xs text-gray-500">
+            <span className="font-inter text-xs text-gray-500 me-2">
+              {timeAgo(post.createdAt) === timeAgo(post.updatedAt)
+                ? "Posted"
+                : "Updated"}
+            </span>
+            {timeAgo(post.createdAt) === timeAgo(post.updatedAt)
+              ? timeAgo(post.createdAt)
+              : timeAgo(post.updatedAt)}
+          </p>
+        </div>
       </div>
     </div>
   );
