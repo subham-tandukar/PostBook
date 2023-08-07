@@ -39,6 +39,9 @@ const Feed = () => {
   useEffect(() => {
     fetchPosts();
   }, []);
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   const filterBlogs = (searchtext) => {
     const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
