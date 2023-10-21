@@ -14,8 +14,6 @@ const UpdateBlog = () => {
     tag: "",
   });
 
-  console.log("bloblogId", blogId);
-
   useEffect(() => {
     const getBlogDetails = async () => {
       const response = await fetch(`/api/blog/${blogId}`);

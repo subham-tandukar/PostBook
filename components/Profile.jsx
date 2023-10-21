@@ -15,7 +15,7 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete, loading }) => {
         </div>
       ) : (
         <>
-          <div className="mt-10 prompt_layout">
+          <div className="prompt_layout">
             {data.map((post) => (
               <BlogCard
                 key={post._id}

@@ -6,11 +6,21 @@ import Loading from "./loading";
 
 const BlogCardList = ({ data, handleTagClick }) => {
   return (
-    <div className="mt-8 prompt_layout">
-      {data.map((post) => (
-        <BlogCard key={post._id} post={post} handleTagClick={handleTagClick} />
-      ))}
-    </div>
+    <>
+      {data.length > 0 ? (
+        <div className="prompt_layout ">
+          {data.map((post) => (
+            <BlogCard
+              key={post._id}
+              post={post}
+              handleTagClick={handleTagClick}
+            />
+          ))}
+        </div>
+      ) : (
+        <span className="text-center block mt-5">No result found.</span>
+      )}
+    </>
   );
 };
 
@@ -22,9 +32,9 @@ const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(null);
   const [searchedResults, setSearchedResults] = useState([]);
-
+  const [searchedLoading, setSearchedLoading] = useState(false);
   const fetchPosts = async () => {
-    const response = await fetch("/api/blog", { cache: "no-store" });
+    const response = await fetch("/api/blog");
     const result = await response.json();
     if (result.StatusCode === 200) {
       const postResult = result.Values ? result.Values : [];
@@ -36,9 +46,6 @@ const Feed = () => {
     }
   };
 
-  useEffect(() => {
-    fetchPosts();
-  }, []);
   useEffect(() => {
     fetchPosts();
   }, []);
@@ -56,12 +63,14 @@ const Feed = () => {
   const handleSearchChange = (e) => {
     clearTimeout(searchTimeout);
     setSearchText(e.target.value);
+    setSearchedLoading(true);
 
     // debounce method
     setSearchTimeout(
       setTimeout(() => {
         const searchResult = filterBlogs(e.target.value);
         setSearchedResults(searchResult);
+        setSearchedLoading(false);
       }, 500)
     );
   };
@@ -88,7 +97,7 @@ const Feed = () => {
 
       {/* All Blogs */}
 
-      {loading ? (
+      {loading || searchedLoading ? (
         <div className="mt-10">
           <Loading />
         </div>
