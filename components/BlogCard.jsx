@@ -8,7 +8,6 @@ import { FcClock } from "react-icons/fc";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
 import { toast } from "react-toastify";
-import Toast from "./Toast";
 
 const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
   const { data: session } = useSession();
@@ -78,7 +77,6 @@ const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
 
   return (
     <>
-      <Toast />
       <div className="prompt_card">
         <div className="flex justify-between items-start gap-5">
           <div

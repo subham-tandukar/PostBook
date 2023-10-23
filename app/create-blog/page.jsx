@@ -2,8 +2,10 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import withAuth from "@utils/withAuth";
 
 import Form from "@components/Form";
+import PageNotFound from "@components/404";
 const CreateBlog = () => {
   const router = useRouter();
   const { data: session } = useSession();
@@ -37,14 +39,23 @@ const CreateBlog = () => {
       setSubmitting(false);
     }
   };
+
   return (
-    <Form
-      type="Create"
-      post={post}
-      setPost={setPost}
-      submitting={submitting}
-      handleSubmit={createBlog}
-    />
+    <>
+      {!session ? (
+        <div className="mt-10">
+          <PageNotFound />
+        </div>
+      ) : (
+        <Form
+          type="Create"
+          post={post}
+          setPost={setPost}
+          submitting={submitting}
+          handleSubmit={createBlog}
+        />
+      )}
+    </>
   );
 };
 

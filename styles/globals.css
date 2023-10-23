@@ -77,8 +77,17 @@
   @apply relative z-10 flex justify-center items-center flex-col max-w-[900px] mx-auto sm:px-16 px-6;
 }
 
+.white_btn {
+  @apply w-max transition-all rounded-md border bg-white py-3 px-5 text-black transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center;
+}
+.white_btn:hover {
+  @apply shadow-md;
+}
+.white_btn svg {
+  @apply mr-2;
+}
 .black_btn {
-  @apply rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center;
+  @apply w-max rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center;
 }
 
 .outline_btn {
@@ -179,3 +188,29 @@
   color: white;
 } */
 
+.page_404 {
+  @apply py-10 bg-white fixed top-0 left-0 z-[1000] w-full h-[100vh] flex justify-center items-center;
+}
+
+.page_404 img {
+  @apply w-full;
+}
+
+.four_zero_four_bg {
+  background-image: url("/assets/images/404.gif");
+  @apply h-[400px] bg-center bg-no-repeat;
+}
+
+.four_zero_four_bg h1 {
+  @apply text-8xl;
+}
+
+.four_zero_four_bg h3 {
+  @apply text-8xl;
+}
+.four_zero_four_btn .black_btn {
+  @apply mx-auto mt-5;
+}
+.contant_box_404 {
+  @apply -mt-[50px];
+}

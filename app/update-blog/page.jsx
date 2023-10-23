@@ -1,10 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-
+import { useSession } from "next-auth/react";
+import Loading from "@components/loading";
+import withAuth from "@utils/withAuth";
 import Form from "@components/Form";
+import PageNotFound from "@components/404";
+
 const UpdateBlog = () => {
   const router = useRouter();
+  const { data: session } = useSession();
   const searchParams = useSearchParams();
   const blogId = searchParams.get("id");
   const [submitting, setSubmitting] = useState(false);
@@ -50,14 +55,21 @@ const UpdateBlog = () => {
       setSubmitting(false);
     }
   };
+
   return (
-    <Form
-      type="Edit"
-      post={post}
-      setPost={setPost}
-      submitting={submitting}
-      handleSubmit={updateBlog}
-    />
+    <>
+      {!session ? (
+        <PageNotFound />
+      ) : (
+        <Form
+          type="Edit"
+          post={post}
+          setPost={setPost}
+          submitting={submitting}
+          handleSubmit={updateBlog}
+        />
+      )}
+    </>
   );
 };
 

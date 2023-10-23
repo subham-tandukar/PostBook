@@ -19,7 +19,11 @@ const Nav = () => {
   }, []);
 
   return (
-    <nav className="flex-between w-full mb-12 pt-3">
+    <nav
+      className={` ${
+        session?.user ? "flex-between" : "flex-center"
+      } w-full mb-5 pt-3`}
+    >
       <Link href="/" className="flex gap-2 flex-center">
         <Image
           src="/assets/images/logo.svg"
@@ -28,7 +32,7 @@ const Nav = () => {
           height={30}
           className="object-contain"
         />
-        <p className="logo_text">Promptopia</p>
+        <p className="logo_text">Post Book</p>
       </Link>
 
       {/* Desktop navigation */}
@@ -54,21 +58,7 @@ const Nav = () => {
               />
             </Link>
           </div>
-        ) : (
-          <>
-            {providers &&
-              Object.values(providers).map((provider) => (
-                <button
-                  type="button"
-                  key={provider.name}
-                  onClick={() => signIn(provider.id)}
-                  className="black_btn"
-                >
-                  Sign In
-                </button>
-              ))}
-          </>
-        )}
+        ) : null}
       </div>
 
       {/* Mobile Navigation */}
@@ -116,21 +106,7 @@ const Nav = () => {
               </div>
             )}
           </div>
-        ) : (
-          <>
-            {providers &&
-              Object.values(providers).map((provider) => (
-                <button
-                  type="button"
-                  key={provider.name}
-                  onClick={() => signIn(provider.id)}
-                  className="black_btn"
-                >
-                  Sign In
-                </button>
-              ))}
-          </>
-        )}
+        ) : null}
       </div>
     </nav>
   );

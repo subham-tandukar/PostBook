@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import Profile from "@components/Profile";
+import withAuth from "@utils/withAuth";
+import PageNotFound from "@components/404";
 
 const MyProfile = () => {
   const router = useRouter();
@@ -47,14 +49,22 @@ const MyProfile = () => {
   };
 
   return (
-    <Profile
-      name="My"
-      desc="Welcome to your personalized profile page. Share your exceptional prompts and inspire others with the power of your imagination"
-      data={myPosts}
-      handleEdit={handleEdit}
-      handleDelete={handleDelete}
-      loading={loading}
-    />
+    <>
+      {!session ? (
+        <div className="mt-10">
+          <PageNotFound />
+        </div>
+      ) : (
+        <Profile
+          name="My"
+          desc="Welcome to your personalized profile page. Share your exceptional prompts and inspire others with the power of your imagination"
+          data={myPosts}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+          loading={loading}
+        />
+      )}
+    </>
   );
 };
 
