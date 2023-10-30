@@ -25,9 +25,9 @@ const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
   const handleCopy = () => {
     setCopied(post.blog);
     navigator.clipboard.writeText(post.blog);
-    toast.success("Copied", {
-      theme: "light",
-    });
+    // toast.success("Copied", {
+    //   theme: "light",
+    // });
     setTimeout(() => setCopied(false), 3000);
   };
 
@@ -100,16 +100,21 @@ const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
           </div>
 
           <div className="copy_btn" onClick={handleCopy}>
-            <Image
-              src={
-                copied === post.blog
-                  ? "/assets/icons/tick.svg"
-                  : "/assets/icons/copy.svg"
-              }
-              alt={copied === post.blog ? "tick_icon" : "copy_icon"}
-              width={12}
-              height={12}
-            />
+            <div
+              data-tooltip={copied === post.blog ? "Copied" : "Copy"}
+              className="tooltip"
+            >
+              <Image
+                src={
+                  copied === post.blog
+                    ? "/assets/icons/tick.svg"
+                    : "/assets/icons/copy.svg"
+                }
+                alt={copied === post.blog ? "tick_icon" : "copy_icon"}
+                width={12}
+                height={12}
+              />
+            </div>
           </div>
         </div>
 
