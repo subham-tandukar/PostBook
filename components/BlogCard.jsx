@@ -102,7 +102,7 @@ const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
           <div className="copy_btn" onClick={handleCopy}>
             <div
               data-tooltip={copied === post.blog ? "Copied" : "Copy"}
-              className="tooltip"
+              className={`${copied === post.blog ? "copiedtxt" : ""} tooltip `}
             >
               <Image
                 src={

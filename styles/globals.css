@@ -280,12 +280,14 @@
   z-index: 1000;
   padding: 6px 8px;
   width: max-content;
-  background-color: #000;
-  background-color: hsla(0, 0%, 20%, 0.9);
+  @apply bg-gradient-to-r from-blue-600 to-cyan-600;
   color: #fff;
   content: attr(data-tooltip);
   font-size: 14px;
   line-height: 1.2;
+}
+.tooltip.copiedtxt{
+  @apply bg-gradient-to-r from-green-400 to-green-500;
 }
 /* Top (default) */
 [data-tooltip]:before,
@@ -303,8 +305,7 @@
 
 [data-tooltip]:before,
 .tooltip:before {
-  margin-left: -6px;
-  margin-bottom: -11.5px;
+  margin-bottom: -11px;
   border-top-color: #000;
   border-top-color: hsla(0, 0%, 20%, 0.9);
 }
