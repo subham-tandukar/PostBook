@@ -5,8 +5,6 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import { FcClock } from "react-icons/fc";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css"; // optional
 import { toast } from "react-toastify";
 
 const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
@@ -102,21 +100,16 @@ const BlogCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
           </div>
 
           <div className="copy_btn" onClick={handleCopy}>
-            <Tippy
-              content={copied === post.blog ? "Copied" : "Copy"}
-              animation="fade"
-            >
-              <Image
-                src={
-                  copied === post.blog
-                    ? "/assets/icons/tick.svg"
-                    : "/assets/icons/copy.svg"
-                }
-                alt={copied === post.blog ? "tick_icon" : "copy_icon"}
-                width={12}
-                height={12}
-              />
-            </Tippy>
+            <Image
+              src={
+                copied === post.blog
+                  ? "/assets/icons/tick.svg"
+                  : "/assets/icons/copy.svg"
+              }
+              alt={copied === post.blog ? "tick_icon" : "copy_icon"}
+              width={12}
+              height={12}
+            />
           </div>
         </div>
 

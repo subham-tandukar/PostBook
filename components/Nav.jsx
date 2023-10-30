@@ -26,10 +26,7 @@ const Nav = () => {
     >
       <Link href="/" className="flex gap-2 flex-center">
         <Image
-          src="/assets/images/logo.svg"
-          alt="logo"
-          width={30}
-          height={30}
+         src="/assets/images/logo.svg"
           className="object-contain"
         />
         <p className="logo_text">Post Book</p>
